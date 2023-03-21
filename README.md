@@ -16,15 +16,15 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 ## I'm learning about these:
-- Image processing
-- QR Code scanning
-- Video processing (uploading to both for AWS)
-- Form handling
-- Ghant chart building project planning type stuff
-- PDF viewing
-- Drawing capabilities
-- Geo location
-- Gyro
+- [x] QR Code scanning
+- [ ] Image processing
+- [ ] Video processing (uploading to both for AWS)
+- [ ] Form handling
+- [ ] Ghant chart building project planning type stuff
+- [ ] PDF viewing
+- [ ] Drawing capabilities
+- [ ] Geo location
+- [ ] Gyro
 
 ## Some materials can follow:
 - https://pub.dev/packages/image
