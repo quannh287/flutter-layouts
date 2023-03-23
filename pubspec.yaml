@@ -44,6 +44,10 @@ dependencies:
   video_editor: ^2.4.0
   image: ^4.0.15
   path_provider: ^2.0.14
+  video_player: ^2.6.0
+  helpers: ^1.2.0
+  fraction: ^4.1.4
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:

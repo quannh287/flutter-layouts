@@ -21,13 +21,14 @@ samples, guidance on mobile development, and a full API reference.
 - [x] PDF viewing
   - ? is there editing or highlight pdf file on the app 
 - [ ] Image processing
-  - Pick image/video
-  - Filter
-  - Resizing
-  - Image editing tools
-- [ ] Video processing (uploading to both for AWS)
-  - Filter
-  - Resizing
+  - [x] Pick image
+  - Implement edit tools
+    - Filter
+    - Resizing
+    - Image editing tools
+- [x] Video processing (uploading to both for AWS)
+  - Filter(Lib supported)
+  - Resizing(Lib supported)
   - Image editing tools
 - [ ] Drawing capabilities
 - [ ] Ghant chart building project planning type stuff
