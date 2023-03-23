@@ -15,7 +15,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final ImagePicker _picker = ImagePicker();
 
   void _pickVideo() async {
-    /*final XFile? pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
+    final XFile? pickedFile = await _picker.pickVideo(source: ImageSource.gallery);
 
     if (mounted && pickedFile != null) {
       Navigator.push(
@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
           builder: (BuildContext context) => VideoEditor(file: File(pickedFile.path)),
         ),
       );
-    }*/
+    }
   }
 
   void navigateToScreen(BuildContext context, String screenName) {

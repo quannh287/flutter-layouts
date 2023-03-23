@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:layouts/features/processing/crop_screen.dart';
 import 'package:layouts/features/processing/export_result.dart';
+import 'package:layouts/features/processing/filter_bottom_tab_bar.dart';
 import 'package:video_editor/domain/bloc/controller.dart';
 import 'package:video_editor/domain/entities/cover_style.dart';
 import 'package:video_editor/domain/entities/file_format.dart';
@@ -108,7 +109,7 @@ class _VideoEditorState extends State<VideoEditor> {
                         _topNavBar(),
                         Expanded(
                           child: DefaultTabController(
-                            length: 2,
+                            length: 3,
                             child: Column(
                               children: [
                                 Expanded(
@@ -142,7 +143,10 @@ class _VideoEditorState extends State<VideoEditor> {
                                           ),
                                         ],
                                       ),
-                                      CoverViewer(controller: _controller)
+                                      CoverViewer(controller: _controller),
+                                      Container(
+                                        color: Colors.black12,
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -170,6 +174,16 @@ class _VideoEditorState extends State<VideoEditor> {
                                               Text('Cover')
                                             ],
                                           ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: const [
+                                              Padding(
+                                                padding: EdgeInsets.all(5),
+                                                child: Icon(Icons.color_lens_outlined),
+                                              ),
+                                              Text('Filters')
+                                            ],
+                                          ),
                                         ],
                                       ),
                                       Expanded(
@@ -181,6 +195,7 @@ class _VideoEditorState extends State<VideoEditor> {
                                               children: _trimSlider(),
                                             ),
                                             _coverSelection(),
+                                            FilterBottomTabBar(),
                                           ],
                                         ),
                                       ),
