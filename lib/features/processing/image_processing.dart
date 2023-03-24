@@ -1,10 +1,16 @@
 import 'dart:developer';
 import 'dart:io';
+import 'dart:ui';
+import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:helpers/helpers.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:layouts/utils/color_filter.dart';
+import 'package:layouts/utils/filter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as img;
 
 class ImageProcessing extends StatefulWidget {
   const ImageProcessing({Key? key}) : super(key: key);
@@ -15,26 +21,19 @@ class ImageProcessing extends StatefulWidget {
 
 class _ImageProcessingState extends State<ImageProcessing> {
   ColorFilter _colorFiltered = ColorFilterMatrix.brightness.matrix;
-  List<XFile>? _imageFileList;
+  File? _pickedFile;
   final ImagePicker _picker = ImagePicker();
 
-  void _setImageFileList(XFile? file) {
-    _imageFileList = file == null ? null : <XFile>[file];
-  }
+  Future<Uint8List>? _futureString;
 
-  Future<void> _onImageButtonPressed(ImageSource source,
-      {BuildContext? context, bool isMultiple = false}) async {
-    if (isMultiple) {
-      final List<XFile> files = await _picker.pickMultiImage();
-      setState(() {
-        _imageFileList = files;
-      });
-    } else {
-      final XFile? file = await _picker.pickImage(source: source);
-      setState(() {
-        _setImageFileList(file);
-      });
-    }
+  Future<void> _onImageButtonPressed(ImageSource source, {bool isMultiple = false}) async {
+    final XFile? file = await _picker.pickImage(source: source);
+    _futureString = Future.delayed(
+        const Duration(seconds: 1), () => FilterMethods.getFilteredImage(_pickedFile!));
+
+    setState(() {
+      _pickedFile = File(file!.path);
+    });
   }
 
   void _onChangeColorFilter(ColorFilter colorFilter) {
@@ -44,11 +43,39 @@ class _ImageProcessingState extends State<ImageProcessing> {
     });
   }
 
+  Future<void> _applyFilter() async {
+    List<int> imageBytes = await _pickedFile!.readAsBytes();
+    img.Image? originalImage = img.decodeImage(Uint8List.fromList(imageBytes));
+
+    img.Image filteredImage =
+        img.copyResize(originalImage!, width: originalImage.width, height: originalImage.height);
+    img.billboard(filteredImage);
+
+    Directory? appDocDir = await getExternalStorageDirectory();
+    String appDocPath = appDocDir!.path;
+
+    String fileName = 'quan-${DateTime.now().millisecondsSinceEpoch}_filtered.jpg';
+    File filteredFile = File('$appDocPath/$fileName');
+    compute(filteredFile.writeAsBytes, img.encodePng(filteredImage));
+
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text('Image saved to $appDocPath'),
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Image Editor"),
+        actions: [
+          IconButton(
+            onPressed: _applyFilter,
+            icon: const Icon(
+              Icons.download_for_offline_outlined,
+            ),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -57,22 +84,24 @@ class _ImageProcessingState extends State<ImageProcessing> {
               padding: const EdgeInsets.all(8.0),
               child: Align(
                 alignment: Alignment.topCenter,
-                child: _imageFileList == null
+                child: _pickedFile == null
                     ? const Text(
                         "You must choose an image from your phone",
                         style: TextStyle(fontSize: 18),
                       )
-                    : Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(width: 2, color: Colors.blueGrey),
-                        ),
-                        child: ColorFiltered(
-                          colorFilter: _colorFiltered,
-                          child: Image(
-                            image: FileImage(File(_imageFileList![0].path)),
-                            height: 500,
-                          ),
-                        ),
+                    : FutureBuilder(
+                        future: _futureString,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(width: 2, color: Colors.blueGrey),
+                              ),
+                              child: Image.memory(snapshot.data!),
+                            );
+                          }
+                          return const Center(child: CircularProgressIndicator());
+                        },
                       ),
               ),
             ),
@@ -114,7 +143,7 @@ class _ImageProcessingState extends State<ImageProcessing> {
               color: Colors.white,
             ),
           ),
-          Padding(
+/*          Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: FloatingActionButton(
               onPressed: () => _onImageButtonPressed(ImageSource.gallery, isMultiple: true),
@@ -123,7 +152,7 @@ class _ImageProcessingState extends State<ImageProcessing> {
                 color: Colors.white,
               ),
             ),
-          ),
+          ),*/
           Padding(
             padding: const EdgeInsets.only(left: 16.0),
             child: FloatingActionButton(
