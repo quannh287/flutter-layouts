@@ -52,6 +52,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: _pickVideo,
               child: const Text('Video Editor'),
             ),
+            ElevatedButton(
+              onPressed: () => navigateToScreen(context, "/drawing-capabilities"),
+              child: const Text('Drawing Screen'),
+            ),
           ],
         ),
       ),

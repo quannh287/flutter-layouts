@@ -19,8 +19,8 @@ samples, guidance on mobile development, and a full API reference.
 - [ ] Form handling
 - [x] QR Code scanning
 - [x] PDF viewing
-  - ? is there editing or highlight pdf file on the app 
-- [ ] Image processing
+  - ? is there editing or highlight pdf file on the app
+- [x] Image processing
   - [x] Pick image
   - Implement edit tools
     - Filter
@@ -30,8 +30,20 @@ samples, guidance on mobile development, and a full API reference.
   - Filter(Lib supported)
   - Resizing(Lib supported)
   - Image editing tools
-- [ ] Drawing capabilities
-- [ ] Ghant chart building project planning type stuff
+
+- [ ] Drawing capabilities, learning about
+  - Using the `CustomPaint` widget to draw UI pixel-by-pixel
+  - The drawing basics and using a `Canvas`
+  - Detecting user input using `GestureDetector` and drawing a path
+  - Drawing multiple paths on the screen
+  - Changing painter colors and stroke widths
+  - Clearing and saving your drawings
+
+- Reference materials:
+  - [Tutorial](https://www.kodeco.com/25237210-building-a-drawing-app-in-flutter)
+  - [Canvas class](https://api.flutter.dev/flutter/dart-ui/Canvas-class.html#instance-methods)
+
+- [ ] Gant chart building project planning type stuff
 - [ ] Geo location
 - [ ] Gyro(gyroscope sensor)
 

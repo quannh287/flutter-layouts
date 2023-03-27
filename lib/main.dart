@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:layouts/features/drawing/drawing_page.dart';
 import 'package:layouts/features/home_screen.dart';
 import 'package:layouts/features/processing/image_processing.dart';
 import 'package:layouts/features/qr_code_scanner.dart';
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
         "/": (context) => const HomeScreen(),
         "/qr-scanner": (context) => const QRCodeScanner(),
         "/image-processing": (context) => const ImageProcessing(),
+        "/drawing-capabilities": (context) => DrawingPage(),
       },
     );
   }
