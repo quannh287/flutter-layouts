@@ -49,6 +49,7 @@ dependencies:
   fraction: ^4.1.4
   permission_handler: ^10.2.0
   image_gallery_saver: ^1.7.1
+  gantt_chart: ^0.3.0
 
 dev_dependencies:
   flutter_test:

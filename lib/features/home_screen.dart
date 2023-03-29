@@ -56,6 +56,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => navigateToScreen(context, "/drawing-capabilities"),
               child: const Text('Drawing Screen'),
             ),
+            ElevatedButton(
+              onPressed: () => navigateToScreen(context, "/gantt-chart"),
+              child: const Text('Gantt chart'),
+            ),
           ],
         ),
       ),

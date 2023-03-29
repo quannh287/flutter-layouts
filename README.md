@@ -25,7 +25,7 @@ samples, guidance on mobile development, and a full API reference.
   - Implement edit tools
     - Filter
     - Resizing
-    - Image editing tools
+    - Image editing tools 
 - [x] Video processing (uploading to both for AWS)
   - Filter(Lib supported)
   - Resizing(Lib supported)
