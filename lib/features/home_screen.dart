@@ -60,6 +60,10 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () => navigateToScreen(context, "/gantt-chart"),
               child: const Text('Gantt chart'),
             ),
+            ElevatedButton(
+              onPressed: () => navigateToScreen(context, "/geo-location"),
+              child: const Text('GEO LOCATION'),
+            ),
           ],
         ),
       ),
